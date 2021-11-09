@@ -1,0 +1,29 @@
+﻿@model IEnumerable<QuickPropForum.Models.Post>
+
+<h4>Topics</h4>
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+<table class="table table-hover" id="newPostTable">   
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>         
+                @item.Id
+            </td>
+            <td>
+                @item.ParentId
+            </td>          
+            <td>
+                <a asp-controller="Post" asp-action="NewPost" asp-route-id="@item.Id">               
+                    @item.PostContent
+                </a>
+            </td>
+            <td>
+                @item.DatePosted
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

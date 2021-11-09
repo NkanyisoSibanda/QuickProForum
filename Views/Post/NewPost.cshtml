@@ -1,0 +1,44 @@
+﻿@model QuickPropForum.Models.NewPostModel
+
+<h4>Posts</h4>
+<div>
+    Author: @Model.AuthorName
+    Created: @Model.DatePosted
+</div>
+<div>
+    @Model.PostContent
+</div>
+<input id="post_ParentId" type="hidden" asp-for="Id" value="@Model.Id" />
+@if (Model.PostReplies.Any())
+{
+    @foreach (var reply in Model.PostReplies)
+    {
+        <div>
+            <div>
+                Reply Author: @reply.User.Name
+                Reply Created: @reply.DatePosted
+            </div>
+            <div>
+                Reply: @reply.PostContent
+            </div>
+        </div>
+    }
+}
+
+<br />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddPost" asp-controller="Post">
+            <input id="post_ParentId" type="hidden" asp-for="ParentId" value="@Model.Id" />
+            <partial name="_NewPost" model="@Model.PostListingsModel" />
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
+        </form>
+</div>
+</div>
+
+
+
+
