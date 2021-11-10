@@ -19,7 +19,16 @@ namespace QuickPropForum.Controllers
         public UserController(IUserService userService)
         {
             _userService = userService;
-        }       
+        }   
+        
+
+        public IActionResult Index()
+        {
+            var us = _userService.GetAll();   
+            
+            return View(us);
+        }              
+       
 
         [HttpGet]
         public IActionResult NewUser()

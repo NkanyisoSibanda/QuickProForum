@@ -14,7 +14,7 @@ namespace QuickPropForum.Controllers
 {
     public class PostController : Controller
     {
-      //  private readonly ILogger<PostController> _logger;
+        //private readonly ILogger<PostController> _logger;
         private IPostService _postService = null;
         private IUserService _userService = null;
 
@@ -35,7 +35,7 @@ namespace QuickPropForum.Controllers
         [HttpGet]
         public IActionResult NewPost(int Id)
         {
-            //Build PostDataModel
+            //Build PostListingModel
             PostListingsModel postListingsModel = new();
             var Users = _userService.GetAll();
             postListingsModel.LstUsers = Users.Select(x => new SelectListItem
@@ -44,7 +44,7 @@ namespace QuickPropForum.Controllers
                 Value = x.Id.ToString()
             });
 
-            //Build PostIndexModel
+            //Build NewPostModel
             var post = _postService.GetPostById(Id);
             var postReplies = _postService.GetPostsByParentId(post.Id);
             var model = new NewPostModel
@@ -62,37 +62,40 @@ namespace QuickPropForum.Controllers
             return View(model);
         }
 
-       //     [HttpGet]
-        //public IActionResult NewPost()
-        //{
-        //    PostDataModel postDataModel = new();
-        //    var Users = _userService.GetAll();
-        //    postDataModel.LstUsers = Users.Select(x => new SelectListItem
-        //    {
-        //        Text = x.Name,
-        //        Value = x.Id.ToString()
-        //    });
-            
-        //    return View(postDataModel);
-        //}
 
-        [HttpPost]
-        //[FromBody] string postDataModel
-        public IActionResult AddPost(PostListingsModel postDataModel)
-        //public IActionResult AddPost(string parentId, string userId, string postContent)
+        public IActionResult NewTopic()
+        {
+            //Build PostListingModel
+            PostListingsModel postListingsModel = new();
+            var Users = _userService.GetAll();
+            postListingsModel.LstUsers = Users.Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            });
+            return View(postListingsModel);
+        }
+
+        [HttpPost]  
+        public IActionResult AddPost(PostListingsModel postListingModel)    
         {
             var model = new Post
             {
                 //Id = newPostModel.Post.Id,
-                ParentId = postDataModel.ParentId,
-                UserId =   postDataModel.UserId,
-                PostContent = postDataModel.PostContent,
+                ParentId = postListingModel.ParentId,
+                UserId = postListingModel.UserId,
+                PostContent = postListingModel.PostContent,
                 DatePosted = DateTime.Now             
             };
            var JustSavePost = _postService.Save(model);
             //Redirect to the current Post
-            return RedirectToAction("NewPost", "Post", new { Id = JustSavePost.ParentId });           
+            if (JustSavePost.ParentId > 0)
+            {
+                return RedirectToAction("NewPost", "Post", new { Id = JustSavePost.ParentId });
+            }
+            return RedirectToAction("Index", "Post");
         }
+       
 
         public IActionResult Privacy()
         {

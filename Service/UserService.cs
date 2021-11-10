@@ -11,6 +11,8 @@ namespace QuickPropForum.Service
     public class UserService : IUserService
     {
         private readonly QuickPropForumDBContext _context;
+
+       
         public UserService(QuickPropForumDBContext context)
         {
             _context = context;
@@ -28,10 +30,13 @@ namespace QuickPropForum.Service
             return _context.Users.FirstOrDefault();
         }
 
-        public IEnumerable<User> GetAll()
+       
+
+        public List<User> GetAll()
         {
             return _context.Users.ToList();
         }
 
+       
     }
 }

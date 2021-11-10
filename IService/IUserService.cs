@@ -8,8 +8,10 @@ namespace QuickPropForum.IService
 {
     public interface IUserService
     {
+      
         User Save(User oUser);
-        User GetSavedUser();
-        IEnumerable<User> GetAll();
+        // User GetSavedUser(); 
+       
+        List<User> GetAll();
     }
 }

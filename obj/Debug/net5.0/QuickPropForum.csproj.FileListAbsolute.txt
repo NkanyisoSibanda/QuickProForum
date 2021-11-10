@@ -433,3 +433,5 @@ C:\WorkSpace\Projects\QuickPropForum\obj\Debug\net5.0\Razor\Views\Post\NewPost.c
 C:\WorkSpace\Projects\QuickPropForum\obj\Debug\net5.0\Razor\Views\User\NewUser.cshtml.g.cs
 C:\WorkSpace\Projects\QuickPropForum\obj\Debug\net5.0\Razor\Views\Shared\_NewPost.cshtml.g.cs
 C:\WorkSpace\Projects\QuickPropForum\obj\Debug\net5.0\Razor\Views\Post\Index.cshtml.g.cs
+C:\WorkSpace\Projects\QuickPropForum\obj\Debug\net5.0\Razor\Views\User\Index.cshtml.g.cs
+C:\WorkSpace\Projects\QuickPropForum\obj\Debug\net5.0\Razor\Views\Post\NewTopic.cshtml.g.cs

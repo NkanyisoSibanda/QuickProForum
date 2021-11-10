@@ -1,0 +1,14 @@
+﻿@model QuickPropForum.Models.PostListingsModel
+
+<h4>New Topic </h4>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddPost" asp-controller="Post">
+            <input id="post_ParentId" type="hidden" asp-for="ParentId" value="@Model.Id" />
+            <partial name="_NewPost" model="@Model" />
+            <div class="form-group" style="text-align:right">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

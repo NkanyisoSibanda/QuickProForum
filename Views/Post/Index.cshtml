@@ -2,28 +2,49 @@
 
 <h4>Topics</h4>
 
-@*<p>
-    <a asp-action="Create">Create New</a>
-</p>*@
-<table class="table table-hover" id="newPostTable">   
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>         
-                @item.Id
-            </td>
-            <td>
-                @item.ParentId
-            </td>          
-            <td>
-                <a asp-controller="Post" asp-action="NewPost" asp-route-id="@item.Id">               
-                    @item.PostContent
-                </a>
-            </td>
-            <td>
-                @item.DatePosted
-            </td>
-        </tr>
+@if (Model.Any())
+{
+    @foreach (var item in Model)
+    {
+        <table class="table table-hover" id="newPostTable">
+            <tbody>
+
+                <tr>
+                    <td>
+                        @if (item.User.ProfilePic != null)
+                        {
+                            var base64 = Convert.ToBase64String(item.User.ProfilePic);
+                            var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                            <img src='@imgsrc'
+                                 style="max-width:100px;max-height:100px" />
+                        }
+                        else
+                        {
+                            <img alt="No Profile Pic" />
+                        }
+                    </td>
+                    @*<td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.ParentId
+                    </td>*@
+                    <td>
+                        <a asp-controller="Post" asp-action="NewPost" asp-route-id="@item.Id">
+                            @item.PostContent
+                        </a>
+                    </td>
+                    <td>
+                        @item.DatePosted
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
 }
-    </tbody>
-</table>
+else
+{
+    <a asp-controller="Post" asp-action="NewTopic" >
+        There are no posts yet. Folow this link to post the first topic on this forun.
+    </a>
+}

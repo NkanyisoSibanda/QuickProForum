@@ -26,7 +26,9 @@ namespace QuickPropForum.Service
 
         public IEnumerable<Post> GetAll()
         {
-            return _context.Posts.ToList();
+            return _context.Posts
+                .Include(post => post.User)
+                .ToList();
         }
 
         //Posts and Replies are stored in the same table

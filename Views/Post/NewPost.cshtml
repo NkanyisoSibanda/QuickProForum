@@ -1,27 +1,49 @@
 ﻿@model QuickPropForum.Models.NewPostModel
-
 <h4>Posts</h4>
-<div>
-    Author: @Model.AuthorName
-    Created: @Model.DatePosted
+<div class=" row col-md-12" style=" margin-bottom: 5px">
+    <div class="col-md-2">
+        @if (Model.AuthorProfilePic != null)
+        {
+            var base64 = Convert.ToBase64String(Model.AuthorProfilePic);
+            var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+            <img src='@imgsrc' style="max-height:100px" />
+        }
+        else
+        {
+            <img alt="No Profile Pic" />
+        }
+    </div>
+    <div class="col-md-8" style="background-color:#e4e4e4; border:1px solid black;margin-left:1em">
+        <strong> @Model.AuthorName - </strong> @Model.PostContent <strong>- @Model.DatePosted  </strong>
 </div>
-<div>
-    @Model.PostContent
 </div>
 <input id="post_ParentId" type="hidden" asp-for="Id" value="@Model.Id" />
 @if (Model.PostReplies.Any())
 {
     @foreach (var reply in Model.PostReplies)
     {
-        <div>
-            <div>
-                Reply Author: @reply.User.Name
-                Reply Created: @reply.DatePosted
-            </div>
-            <div>
-                Reply: @reply.PostContent
-            </div>
+<div class="row">
+    <div class="row col-md-12" style=" margin-bottom: 0px">
+        <div class="col-md-2">
         </div>
+        <div class="col-md-2">
+            @if (reply.User.ProfilePic != null)
+            {
+                var base64 = Convert.ToBase64String(reply.User.ProfilePic);
+                var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                <img src='@imgsrc'
+                     style="max-height:100px" />
+            }
+            else
+            {
+                <img alt="No Profile Pic" />
+            }
+        </div>
+        <div class="col-md-6" style="background-color: #ccffff; border: 1px solid black; margin-left: 1em">
+            <strong> @reply.User.Name - </strong>   ' @reply.PostContent ' <strong> - @reply.DatePosted  </strong>
+        </div>
+    </div>
+</div>
     }
 }
 
@@ -29,14 +51,16 @@
 
 <div class="row">
     <div class="col-md-4">
+    </div>
+    <div class="col-md-6">
         <form asp-action="AddPost" asp-controller="Post">
             <input id="post_ParentId" type="hidden" asp-for="ParentId" value="@Model.Id" />
             <partial name="_NewPost" model="@Model.PostListingsModel" />
-            <div class="form-group">
+            <div class="form-group" style="text-align:right">
                 <input type="submit" value="Add" class="btn btn-primary" />
             </div>
         </form>
-</div>
+    </div>
 </div>
 
 

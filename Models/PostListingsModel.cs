@@ -12,6 +12,9 @@ namespace QuickPropForum.Models
         public int ParentId { get; set; } = 0;
         public int UserId { get; set; }
         public string PostContent { get; set; }
+        public int AuthorId { get; set; }
+        public string AuthorName { get; set; }
+        public byte[] AuthorProfilePic { get; set; }
 
         public IEnumerable<SelectListItem> LstUsers { get; set; }
     }
